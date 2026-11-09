@@ -1,0 +1,10 @@
+{
+  "global_positive": ["instrumental", "cinematic electronic", "modern tech explainer score", "warm analog synth pulses", "deep sub bass",
+                      "tight minimal percussion", "D minor", "100 BPM", "clean mix with space in the midrange for a voice-over"],
+  "global_negative": ["vocals", "lyrics", "singing", "harsh distortion", "lo-fi"],
+  "sections": [
+    { "name": "Hook", "from": 0, "positive": ["near silence", "low sub drone", "rising swell into the next section"], "negative": ["drums", "melody"] },
+    { "name": "Body", "from": "dato.start", "positive": ["deep impact on the first beat", "main motif enters", "steady minimal groove", "leaves space for a narrator"], "negative": ["busy drums"] },
+    { "name": "Finale", "from": "cierre.start", "positive": ["final hit on the first beat", "sustained chord with deep sub bass", "rings out until the very end"], "negative": ["new melody", "early silence", "fade out"] }
+  ]
+}

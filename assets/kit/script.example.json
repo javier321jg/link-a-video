@@ -1,0 +1,13 @@
+{
+  "_nota": "Marcado {pantalla|hablado}: a la izquierda lo que se ve en subtítulos, a la derecha lo que pronuncia la voz.",
+  "lang": "es",
+  "voice": { "speed": 1.16, "stability": 0.42, "similarity_boost": 0.8 },
+  "lead_in": 0.35,
+  "tail": 2.4,
+  "fps": 60,
+  "segments": [
+    { "id": "s01", "scene": "hook", "gap": 0.5, "text": "Esto cambia todo." },
+    { "id": "s02", "scene": "dato", "text": "El rendimiento sube de {41%|cuarenta y uno por ciento} a {64%|sesenta y cuatro por ciento}. Y eso es solo el principio." },
+    { "id": "s03", "scene": "cierre", "text": "Sígueme para más." }
+  ]
+}

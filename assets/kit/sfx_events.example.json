@@ -1,0 +1,10 @@
+{
+  "key": "Dm",
+  "cuts": ["dato.start", "cierre.start"],
+  "events": [
+    { "at": "hook:todo-0.02", "sfx": "thump", "note": "D2", "decay": 0.3, "gain": 0.5 },
+    { "at": "dato.start", "sfx": "impact", "gain": 0.6 },
+    { "at": "dato:sube-0.1", "sfx": "ticks", "count": 12, "span": 0.8, "note": "A5", "gain": 0.05 },
+    { "at": "cierre:sigueme+0.2", "sfx": "chime", "notes": ["D4", "A4", "D5", "F5", "A5"], "decay": 2.2, "gain": 0.13 }
+  ]
+}

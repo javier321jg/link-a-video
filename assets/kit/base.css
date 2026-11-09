@@ -1,0 +1,57 @@
+/* link-a-video · estilos base (escenario 1080x1920, tipografías, subtítulos, cortinas, barras).
+   Cambia la paleta en :root para cada video; lo específico de cada escena va en video.html. */
+@font-face{font-family:"Fraunces";src:url("node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-normal.woff2") format("woff2");font-weight:100 900;font-style:normal}
+@font-face{font-family:"Fraunces";src:url("node_modules/@fontsource-variable/fraunces/files/fraunces-latin-full-italic.woff2") format("woff2");font-weight:100 900;font-style:italic}
+@font-face{font-family:"Bricolage";src:url("node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");font-weight:200 800}
+@font-face{font-family:"JBMono";src:url("node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2") format("woff2");font-weight:500}
+@font-face{font-family:"JBMono";src:url("node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2") format("woff2");font-weight:700}
+
+:root{--ink:#141413;--ink2:#1f1e1d;--slate:#30302e;--cloud:#b0aea5;--dim:#87867f;--oat:#e3dacc;--ivory:#faf9f5;
+  --clay:#d97757;--cactus:#bcd1ca;--iris:#b3a4ff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#000;overflow:hidden}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--ink);color:var(--ivory);
+  font-family:"Bricolage",sans-serif;-webkit-font-smoothing:antialiased}
+.scene,.sub{position:absolute;inset:0;visibility:hidden;opacity:0;overflow:hidden}
+.kb{position:absolute;inset:0;transform-origin:50% 45%}
+.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.shade{position:absolute;inset:0}
+.serif{font-family:"Fraunces",serif;font-weight:400;letter-spacing:-.025em;line-height:.98;font-variation-settings:"SOFT" 30,"WONK" 0}
+.it{font-style:italic}
+.mono{font-family:"JBMono",monospace;font-weight:500;text-transform:uppercase;letter-spacing:.09em;font-size:27px;line-height:1.3}
+.gro{font-family:"Bricolage",sans-serif}
+.clay{color:var(--clay)} .cactus{color:var(--cactus)} .iris{color:var(--iris)}
+[id]{will-change:auto}
+.abs{position:absolute}
+
+/* ---------- overlays ---------- */
+#grain{position:absolute;inset:0;opacity:.085;mix-blend-mode:overlay;pointer-events:none;z-index:60}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 46%,rgba(0,0,0,0) 55%,rgba(0,0,0,.42) 100%);z-index:59}
+.wipe{position:absolute;inset:-2px;background:var(--ink);z-index:50}
+.wipe::before,.wipe::after{content:"";position:absolute;background:var(--clay)}
+.wipe.v::before{left:0;right:0;top:0;height:7px} .wipe.v::after{left:0;right:0;bottom:0;height:7px}
+.wipe.h::before{top:0;bottom:0;left:0;width:7px} .wipe.h::after{top:0;bottom:0;right:0;width:7px}
+.flash{position:absolute;inset:0;z-index:51;opacity:0;mix-blend-mode:screen}
+
+/* ---------- subtítulos ---------- */
+#cap{position:absolute;left:84px;width:872px;top:1338px;text-align:center;z-index:45;font-family:"Bricolage";font-weight:800;
+  font-size:70px;line-height:1.2;text-transform:uppercase;letter-spacing:-.012em;transform-origin:50% 40%}
+.cw{display:inline-block;padding:0 13px;margin:0 -3px;border-radius:14px;color:var(--ivory);
+  text-shadow:0 3px 0 rgba(0,0,0,.55),0 0 26px rgba(0,0,0,.9),0 0 8px rgba(0,0,0,.8)}
+.cw.fut{opacity:.36}
+.cw.now{background:var(--clay);color:var(--ink);text-shadow:none}
+
+/* ---------- barras ---------- */
+.bar{margin-bottom:18px}
+.bar .bl{font-weight:700;font-size:35px;letter-spacing:-.01em;display:block;margin-bottom:8px}
+.bar .row{display:flex;align-items:center;gap:18px}
+.bar .bt{flex:0 0 auto;height:42px;border-radius:8px;background:var(--dim);transform-origin:0 50%}
+.bar .bv{font-weight:800;font-size:46px;letter-spacing:-.02em;white-space:nowrap}
+.bar .bv small{font-size:28px;font-weight:700;opacity:.8}
+.bar.win .bt{background:var(--cactus)} .bar.win .bl,.bar.win .bv{color:var(--cactus)}
+.bar.riv .bt{background:var(--iris)} .bar.riv .bl,.bar.riv .bv{color:var(--iris)}
+.bar.me .bt{background:var(--clay)} .bar.me .bl,.bar.me .bv{color:var(--clay)}
+
+/* ---------- chips ---------- */
+.chip{font-family:"JBMono";font-weight:500;font-size:25px;letter-spacing:.05em;text-transform:uppercase;border:2px solid rgba(250,249,245,.5);border-radius:40px;padding:11px 22px;white-space:nowrap;display:inline-block}
+.chip.on{background:var(--cactus);border-color:var(--cactus);color:var(--ink);font-weight:700}

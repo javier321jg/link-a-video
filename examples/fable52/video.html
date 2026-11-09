@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Ejemplo completo · Claude Fable 5.2 en 97 segundos</title>
+<!-- Ejemplo real hecho con link-a-video (11 escenas). Para verlo: copia este archivo como video.html en un
+     proyecto creado con new_project.py, junto con su timeline.js y la carpeta img/ (ver README de este ejemplo). -->
+<link rel="stylesheet" href="base.css">
+<style>
+#hud{position:absolute;left:64px;right:64px;top:150px;display:flex;justify-content:space-between;align-items:center;
+  color:var(--cloud);font-size:24px;opacity:0;z-index:40}
+#hud b{color:var(--ivory);font-weight:700}
+#hud-wm{font-family:"Bricolage";font-weight:800;letter-spacing:.14em;text-transform:none;font-size:27px;color:var(--ivory);opacity:.8}
+#hud-wm i{font-style:normal;color:#2fb4ff}
+#flash{position:absolute;inset:0;z-index:51;opacity:0;mix-blend-mode:screen;background:radial-gradient(circle at 19% 49%,#fff 0%,#ffeedd 7%,rgba(217,119,87,.5) 20%,rgba(217,119,87,0) 46%)}
+
+/* ---------- 1 hook ---------- */
+#hk-bg{opacity:0}
+#hk-tag{position:absolute;left:76px;top:330px;color:var(--clay);display:flex;align-items:center;gap:16px}
+#hk-tag i{width:16px;height:16px;border-radius:50%;background:var(--clay);display:block}
+#hk1{position:absolute;left:72px;top:392px;width:980px;font-size:170px;line-height:1.0}
+.hw{display:inline-block;position:relative}
+#hk-cur{position:absolute;left:78px;top:418px;width:16px;height:132px;background:var(--clay);display:block}
+#hk-strike{position:absolute;left:-10px;right:-6px;top:54%;height:11px;background:var(--clay);transform-origin:0 50%;display:block}
+#hk2{position:absolute;left:72px;top:300px;width:1000px;font-size:268px;line-height:.9;white-space:nowrap}
+.hw2{display:inline-block;transform-origin:20% 70%}
+
+/* ---------- 2 intro ---------- */
+#in-kicker{position:absolute;left:78px;top:352px;color:var(--oat)}
+#in-claude{position:absolute;left:70px;top:392px;font-size:150px}
+#in-fable{position:absolute;left:64px;top:528px;font-size:222px;white-space:nowrap}
+#in-sub{position:absolute;left:78px;top:1128px;width:820px;font-weight:600;font-size:58px;line-height:1.1;letter-spacing:-.015em}
+#in-sub b{font-weight:800;color:var(--clay)}
+#in-badge-w{position:absolute;right:76px;top:258px;transform:rotate(8deg)}
+#in-badge{border:4px solid var(--clay);color:var(--clay);padding:16px 28px;font-weight:700;font-size:37px;line-height:1.15;text-align:center;border-radius:10px}
+
+/* ---------- 3 gemelas ---------- */
+.tw-name{position:absolute;top:716px;width:460px;text-align:center}
+.tw-name .mono{display:block;font-size:24px;color:var(--cloud);margin-bottom:6px}
+.tw-name b{font-size:86px;font-weight:400;display:block}
+#tw-f{left:56px} #tw-m{left:560px}
+#tw-same{position:absolute;left:0;width:1080px;top:880px;text-align:center;font-size:94px}
+.tw-col{position:absolute;top:1030px}
+#tw-cf{left:72px;width:452px} #tw-cm{left:556px;width:392px}
+.tw-row{font-weight:700;font-size:38px;line-height:1.1;padding:16px 20px;background:rgba(250,249,245,.07);margin-bottom:12px;letter-spacing:-.01em}
+.tw-row small{display:block;font-family:"JBMono";font-weight:500;font-size:21px;letter-spacing:.06em;text-transform:uppercase;color:var(--cloud);margin-top:7px;line-height:1.25}
+#tw-cf .tw-row{border-left:6px solid var(--cactus)} #tw-cm .tw-row{border-left:6px solid var(--iris)}
+
+/* ---------- 4 velocidad ---------- */
+#sp-a,#sp-b{position:absolute;left:0;width:1080px;text-align:center}
+#sp-a{top:400px} #sp-b{top:430px}
+#sp-a-k{color:var(--oat)} #sp-num{font-size:350px;line-height:1;margin-top:-6px;white-space:nowrap}
+#sp-num .pct{font-size:210px;color:var(--clay);font-style:italic}
+#sp-a-l{color:var(--ivory);font-size:31px;margin-top:6px}
+#sp-race{width:800px;margin:58px auto 0}
+.lane{display:flex;align-items:center;gap:22px;margin-bottom:22px}
+.lane .mono{width:64px;text-align:left;font-size:28px;color:var(--cloud)}
+.lane .track{flex:1;height:26px;background:rgba(250,249,245,.12);border-radius:13px;overflow:hidden}
+.lane .track i{display:block;height:100%;width:100%;border-radius:13px;transform-origin:0 50%;background:var(--dim)}
+#sp-r2{background:var(--clay)!important}
+#sp-b-k{color:var(--ivory);font-size:40px;display:flex;justify-content:center;align-items:center;gap:20px}
+.ff{display:inline-flex;gap:4px} .ff i{display:block;width:0;height:0;border-left:26px solid var(--clay);border-top:17px solid transparent;border-bottom:17px solid transparent}
+#sp-x{font-size:430px;line-height:1.02;white-space:nowrap}
+#sp-x .x{font-size:260px;font-style:italic;color:var(--ivory)}
+#sp-b-l{color:var(--oat);width:960px;margin:8px auto 0;font-size:27px}
+
+/* ---------- 5 fermat ---------- */
+#fe-q{position:absolute;left:72px;top:560px;width:940px;font-size:170px;line-height:.96}
+#fe-dots{position:absolute;left:60px;top:236px;width:960px;height:560px}
+#fe-count{position:absolute;left:72px;top:812px;color:var(--oat);font-size:26px}
+#fe-count b{color:var(--clay);font-weight:700}
+#fe-formula{position:absolute;left:0;width:1080px;top:872px;text-align:center;font-size:150px;white-space:nowrap}
+#fe-formula sup{font-size:.5em;vertical-align:top;position:relative;top:.05em;margin-left:.04em}
+#fe-label{position:absolute;left:0;width:1080px;top:1064px;text-align:center;color:var(--cloud);font-size:25px}
+#fe-30{position:absolute;left:84px;top:1118px;font-size:176px;line-height:1;white-space:nowrap}
+#fe-30 small{font-size:84px;font-style:italic}
+#fe-11{position:absolute;left:520px;top:1150px;white-space:nowrap}
+#fe-11 .mono{display:block;color:var(--cloud);font-size:24px;margin-bottom:4px}
+#fe-11 b{font-size:92px;font-weight:400;color:var(--cloud);position:relative;display:inline-block}
+#fe-11s{position:absolute;left:-10px;right:-10px;top:56%;height:8px;background:var(--clay);transform-origin:0 50%;display:block}
+
+/* ---------- 6 sistema operativo ---------- */
+#os-screen{position:absolute;left:198px;top:374px;width:688px;height:456px;overflow:hidden;background:#12110f;border-radius:6px}
+#os-boot{position:absolute;inset:0;padding:22px 26px;font-family:"JBMono";font-weight:500;font-size:26px;line-height:1.6;color:#cfd8cf;white-space:pre}
+#os-boot .ok{color:var(--cactus)} #os-boot .pr{color:var(--clay)}
+#os-desk{position:absolute;inset:0;background:linear-gradient(160deg,#f5f1e6,#e9dcc9);opacity:0}
+#os-bar{position:absolute;left:0;right:0;top:0;height:30px;background:rgba(20,20,19,.88);color:var(--ivory);font-family:"JBMono";font-size:15px;font-weight:500;padding:5px 14px;display:flex;justify-content:space-between}
+.os-win{position:absolute;background:#fffdf8;border-radius:10px;box-shadow:0 14px 34px rgba(20,20,19,.28);overflow:hidden;color:var(--ink)}
+.os-win .tb{height:26px;background:#e6dfd0;display:flex;align-items:center;gap:6px;padding-left:10px}
+.os-win .tb i{width:9px;height:9px;border-radius:50%;background:#c9bfae;display:block}
+#os-w1{left:44px;top:62px;width:330px;height:300px} #os-w2{left:330px;top:150px;width:310px;height:250px}
+#os-w1 .bd{padding:16px 18px;font-family:"JBMono";font-size:16px;line-height:1.75;color:#4d4c48}
+#os-w2 .bd{padding:22px 22px}
+#os-w2 .bd b{font-family:"Fraunces";font-weight:400;font-size:54px;letter-spacing:-.02em;display:block;line-height:1}
+#os-w2 .bd span{font-family:"JBMono";font-size:15px;color:var(--clay);display:block;margin-top:14px;letter-spacing:.04em}
+#os-stats{position:absolute;left:72px;top:186px;display:flex;gap:64px}
+#os-kb{transform-origin:50% 16%}
+.stat b{font-size:104px;font-weight:400;display:block;line-height:1}
+.stat .mono{color:var(--oat);font-size:25px;display:block;margin-top:2px}
+#os-s2 b{color:var(--clay)}
+#os-title{position:absolute;left:72px;top:1090px;font-size:92px;white-space:nowrap}
+#os-chips{position:absolute;left:72px;top:1212px;display:flex;gap:16px}
+
+/* ---------- 7 hazañas ---------- */
+.bignum{position:absolute;left:56px;top:790px;font-size:440px;line-height:1;color:var(--clay)}
+.feat-t{position:absolute;left:330px;top:872px;font-size:80px;line-height:1.0;width:640px}
+.feat-s{position:absolute;left:336px;color:var(--cloud);font-size:24px}
+.stamp-w{position:absolute;transform:rotate(-7deg)}
+.stamp{border:5px solid var(--cactus);color:var(--cactus);padding:10px 26px;font-weight:700;font-size:44px;border-radius:10px;letter-spacing:.12em;background:rgba(20,20,19,.55)}
+#fa-sw{left:560px;top:742px}
+#fb-chips{position:absolute;left:72px;top:1112px;display:flex;gap:12px}
+#fb-chips .chip{font-size:26px;padding:11px 18px;letter-spacing:.03em}
+#fb-zero{position:absolute;left:72px;top:1198px;font-weight:800;font-size:62px;letter-spacing:-.015em;white-space:nowrap}
+#fb-zero b{color:var(--cactus);font-family:"Fraunces";font-weight:400;font-size:84px;margin-right:12px;position:relative;top:6px}
+#fc-kb{top:170px;bottom:-170px}
+#fc-title{position:absolute;left:72px;top:226px;font-size:104px;line-height:.98}
+#fc-panel{position:absolute;left:56px;top:868px;width:900px;padding:30px 34px 22px;background:rgba(20,20,19,.84);border:2px solid rgba(250,249,245,.16);border-radius:22px}
+#fc-tag-w{position:absolute;left:600px;top:762px;transform:rotate(-5deg)}
+#fc-tag{background:var(--clay);color:var(--ink);font-weight:800;font-size:50px;padding:10px 26px;border-radius:12px;white-space:nowrap;letter-spacing:-.01em}
+.foot{color:var(--dim);font-size:19px;letter-spacing:.05em;margin-top:8px}
+
+/* ---------- 8 honestidad ---------- */
+#ho-site{opacity:.11;filter:grayscale(1) invert(1);height:auto;top:240px;transform:rotate(-4deg) scale(1.15)}
+#ho-q{position:absolute;left:72px;top:330px;font-size:176px;line-height:.95}
+#ho-no{position:absolute;left:60px;top:700px;font-size:500px;line-height:1;transform-origin:20% 60%}
+.chart{position:absolute;left:72px;width:880px}
+.chart-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid rgba(250,249,245,.25);padding-bottom:12px;margin-bottom:22px}
+.chart-h .mono:first-child{font-weight:700;font-size:31px;color:var(--ivory)} .chart-h .dimt{color:var(--cloud);font-size:22px}
+#ho-c1{top:290px} #ho-c2{top:640px}
+#ho-src{position:absolute;left:72px;top:1250px;color:var(--dim);font-size:20px}
+.crown{display:inline-block;font-family:"JBMono";font-size:22px;font-weight:700;background:var(--cactus);color:var(--ink);padding:3px 12px;border-radius:20px;margin-left:14px;vertical-align:middle;letter-spacing:.06em}
+.crown.riv{background:var(--iris)}
+
+/* ---------- 9 precio ---------- */
+#pr-glow{position:absolute;inset:0;background:radial-gradient(circle at 82% 14%,rgba(217,119,87,.4) 0%,rgba(217,119,87,0) 46%),radial-gradient(circle at 8% 80%,rgba(179,164,255,.2) 0%,rgba(179,164,255,0) 42%)}
+#pr-q{position:absolute;left:72px;top:206px;font-size:124px}
+#pr-card-w{position:absolute;left:76px;top:388px;width:900px;transform:rotate(-2.2deg)}
+#pr-card{background:var(--ivory);color:var(--ink);border-radius:20px;padding:30px 44px 26px;box-shadow:0 40px 90px rgba(0,0,0,.55)}
+.pr-h{display:flex;justify-content:space-between;font-size:23px;color:#5e5d59;border-bottom:2px dashed #b0aea5;padding-bottom:16px}
+.pr-row{display:flex;align-items:center;gap:30px;height:226px;border-bottom:2px dashed #d1cfc5}
+.pr-row b{font-size:214px;font-weight:400;line-height:1;letter-spacing:-.04em;min-width:330px;white-space:nowrap}
+.pr-row b sup{font-size:.42em;vertical-align:top;position:relative;top:.22em;color:var(--clay);margin-right:4px}
+.pr-row > span{font-weight:600;font-size:38px;line-height:1.12;color:#3d3d3a;letter-spacing:-.01em}
+.pr-row em{font-style:normal;font-weight:800;color:var(--ink);font-size:50px}
+.pr-f{font-size:21px;color:#73726c;padding-top:16px}
+#pr-plat{position:absolute;left:72px;top:1040px;display:flex;gap:12px}
+#pr-plat .chip{font-size:27px;padding:11px 20px}
+#pr-pro{position:absolute;left:72px;top:1128px;width:872px;background:var(--clay);color:var(--ink);border-radius:18px;padding:18px 30px;display:flex;align-items:center;gap:26px}
+#pr-pro .mono{font-weight:700;font-size:26px;border:3px solid var(--ink);border-radius:10px;padding:8px 14px;white-space:nowrap}
+#pr-pro b{font-weight:800;font-size:52px;letter-spacing:-.02em;line-height:1;display:block}
+#pr-pro small{font-family:"JBMono";font-weight:500;font-size:20px;letter-spacing:.05em;text-transform:uppercase;display:block;margin-top:8px}
+
+/* ---------- 10 consejo ---------- */
+#ad-t{position:absolute;left:72px;top:214px;font-size:112px;line-height:.98;width:900px}
+.ad-card{position:absolute;left:72px;width:880px;border:2px solid rgba(250,249,245,.2);background:rgba(250,249,245,.04);border-radius:20px;padding:0 34px;display:flex;align-items:center;justify-content:space-between}
+.ad-card b{font-weight:400;font-size:96px;white-space:nowrap}
+.ad-card.smc b{font-size:66px;color:var(--cloud)}
+.ad-card .tag{font-weight:700;font-size:26px;line-height:1.3;text-align:right;padding:10px 16px;border-radius:10px;color:var(--ink)}
+#ad-fable{top:480px;height:186px} #ad-opus{top:686px;height:186px} #ad-sonnet{top:892px;height:128px} #ad-haiku{top:1040px;height:128px}
+#ad-tf{background:var(--clay)} #ad-to{background:var(--ivory)}
+#ad-fable-glow{position:absolute;left:72px;top:480px;width:880px;height:186px;border-radius:20px;border:4px solid var(--clay);box-shadow:0 0 70px rgba(217,119,87,.55),inset 0 0 40px rgba(217,119,87,.18)}
+#ad-opus-glow{position:absolute;left:72px;top:686px;width:880px;height:186px;border-radius:20px;border:4px solid var(--ivory);box-shadow:0 0 50px rgba(250,249,245,.25)}
+#ad-ax{position:absolute;left:72px;top:1196px;color:var(--dim);font-size:21px}
+
+/* ---------- 11 cierre ---------- */
+#ou-a,#ou-b,#ou-c{position:absolute;inset:0}
+#ou-q{position:absolute;left:72px;top:214px;font-size:124px}
+.rs{position:absolute;left:72px;width:900px}
+.rs b{font-weight:400;font-size:156px;line-height:1;display:block;white-space:nowrap}
+.rs b i{font-style:italic}
+.rs .mono{display:block;color:var(--oat);font-size:26px;margin-top:10px}
+#rs1{top:400px} #rs2{top:650px} #rs3{top:900px}
+#ou-made1{position:absolute;left:72px;top:400px;font-size:112px;line-height:1.02;color:var(--oat)}
+#ou-made2{position:absolute;left:68px;top:668px;font-size:216px;line-height:.95;white-space:nowrap}
+#ou-c{visibility:hidden;opacity:0}
+#ou-follow{position:absolute;left:0;width:1080px;top:300px;text-align:center;font-size:124px}
+#ou-logo-w{position:absolute;left:220px;top:480px;width:640px;height:640px;border-radius:84px;overflow:hidden;box-shadow:0 0 0 3px rgba(120,190,255,.35),0 30px 120px rgba(30,120,255,.55),0 0 220px rgba(30,120,255,.28)}
+#ou-logo{width:100%;height:100%;object-fit:cover;display:block}
+#ou-brand{position:absolute;left:0;width:1080px;top:520px;text-align:center;font-weight:800;font-size:196px;letter-spacing:.01em;line-height:1}
+#ou-brand i{font-style:normal;color:#2fb4ff}
+#ou-tag{position:absolute;left:0;width:1080px;top:742px;text-align:center;font-size:34px;letter-spacing:.42em;color:var(--ivory)}
+#ou-line{position:absolute;left:340px;width:400px;top:830px;height:6px;background:#2fb4ff;transform-origin:50% 50%}
+#ou-src{position:absolute;left:0;width:1080px;top:1172px;text-align:center;color:var(--cloud);font-size:23px;line-height:1.7;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- ========== 1 HOOK ========== -->
+<section class="scene" id="sc-hook">
+  <img class="bg" id="hk-bg" src="img/horizon.jpg">
+  <div id="hk-tag" class="mono"><i></i>video generado por IA</div>
+  <i id="hk-cur"></i>
+  <h1 id="hk1" class="serif"><span class="hw">Este</span> <span class="hw">video</span> <br><span class="hw">no</span> <span class="hw">lo</span> <span class="hw">editó</span><br><span class="hw">ningún</span><br><span class="hw">humano.<i id="hk-strike"></i></span></h1>
+  <h1 id="hk2" class="serif"><span class="hw2">Lo</span> <span class="hw2">hice</span><br><span class="hw2 clay it">yo.</span></h1>
+</section>
+
+<!-- ========== 2 INTRO ========== -->
+<section class="scene" id="sc-intro">
+  <div class="kb" id="in-kb"><img class="bg" src="img/horizon.jpg"></div>
+  <div id="in-kicker" class="mono">Anthropic · 9 nov 2026</div>
+  <h1 id="in-claude" class="serif">Claude</h1>
+  <h1 id="in-fable" class="serif">Fable <span class="clay it" id="in-52">5.2</span></h1>
+  <div id="in-sub">La nueva inteligencia artificial de <b>Anthropic</b></div>
+  <div id="in-badge-w"><div id="in-badge" class="mono">recién<br>salida</div></div>
+</section>
+
+<!-- ========== 3 GEMELAS ========== -->
+<section class="scene" id="sc-twins">
+  <div class="kb" id="tw-kb"><img class="bg" src="img/twins.jpg"></div>
+  <div class="shade" style="background:linear-gradient(180deg,rgba(20,20,19,0) 34%,rgba(20,20,19,.9) 52%)"></div>
+  <div class="tw-name" id="tw-f"><span class="mono">yo</span><b class="serif cactus">Fable 5.2</b></div>
+  <div class="tw-name" id="tw-m"><span class="mono">mi gemela</span><b class="serif iris">Mythos 5.2</b></div>
+  <div id="tw-same" class="serif it">= el mismo modelo</div>
+  <div class="tw-col" id="tw-cf">
+    <div class="tw-row" id="tw-f1">Protecciones extra<small>ciberseguridad · biología</small></div>
+    <div class="tw-row" id="tw-f2">Disponible para todos</div>
+  </div>
+  <div class="tw-col" id="tw-cm">
+    <div class="tw-row" id="tw-m1">Solo organizaciones verificadas<small>ciberseguridad · ciencias de la vida</small></div>
+  </div>
+</section>
+
+<!-- ========== 4 VELOCIDAD ========== -->
+<section class="scene" id="sc-speed">
+  <div class="kb" id="sp-kb"><img class="bg" src="img/speed2.jpg"></div>
+  <div class="shade" style="background:radial-gradient(ellipse at 50% 40%,rgba(20,20,19,.45) 0%,rgba(20,20,19,.86) 72%)"></div>
+  <div id="sp-a">
+    <div class="mono" id="sp-a-k">hasta</div>
+    <div class="serif" id="sp-num">+<span id="sp-cnt">0</span><span class="pct">%</span></div>
+    <div class="mono" id="sp-a-l">más rápida que Fable 5.1</div>
+    <div id="sp-race">
+      <div class="lane"><span class="mono">5.1</span><div class="track"><i id="sp-r1"></i></div></div>
+      <div class="lane"><span class="mono clay">5.2</span><div class="track"><i id="sp-r2"></i></div></div>
+    </div>
+  </div>
+  <div id="sp-b">
+    <div class="mono" id="sp-b-k"><span class="ff"><i></i><i></i></span>modo rápido</div>
+    <div class="serif clay" id="sp-x">2.5<span class="x">×</span></div>
+    <div class="mono" id="sp-b-l">hasta 2.5 veces más rápida generando tokens</div>
+  </div>
+</section>
+
+<!-- ========== 5 FERMAT ========== -->
+<section class="scene" id="sc-fermat">
+  <div class="kb" id="fe-kb"><img class="bg" src="img/fermat.jpg"></div>
+  <div class="shade" id="fe-shade" style="background:rgba(20,20,19,.7)"></div>
+  <div id="fe-q" class="serif it">¿Qué puedo hacer?</div>
+  <canvas id="fe-dots" width="960" height="560"></canvas>
+  <div id="fe-count" class="mono"><b id="fe-n">0</b> copias de Fable 5.2 en equipo</div>
+  <div id="fe-formula" class="serif it">x<sup>n</sup> + y<sup>n</sup> = z<sup>n</sup></div>
+  <div id="fe-label" class="mono">Último Teorema de Fermat · formalizado en Lean</div>
+  <div id="fe-30" class="serif clay"><span id="fe-30n">0</span><small> horas</small></div>
+  <div id="fe-11"><span class="mono">antes</span><b class="serif">11 días<i id="fe-11s"></i></b></div>
+</section>
+
+<!-- ========== 6 SISTEMA OPERATIVO ========== -->
+<section class="scene" id="sc-os">
+  <div class="kb" id="os-kb"><img class="bg" src="img/os.jpg">
+    <div id="os-screen">
+      <div id="os-boot"></div>
+      <div id="os-desk">
+        <div id="os-bar"><span>fable-os</span><span>09 nov · 100%</span></div>
+        <div class="os-win" id="os-w1"><div class="tb"><i></i><i></i><i></i></div><div class="bd">archivos/<br>&nbsp;├ kernel<br>&nbsp;├ drivers<br>&nbsp;├ ventanas<br>&nbsp;├ login<br>&nbsp;└ instalador</div></div>
+        <div class="os-win" id="os-w2"><div class="tb"><i></i><i></i><i></i></div><div class="bd"><b>Hola.</b><span>arranque completo</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="shade" style="background:linear-gradient(180deg,rgba(20,20,19,.72) 0%,rgba(20,20,19,0) 20%,rgba(20,20,19,0) 50%,rgba(20,20,19,.75) 60%)"></div>
+  <div id="os-stats">
+    <div class="stat" id="os-s1"><b class="serif"><span id="os-n1">0</span>+</b><span class="mono">subagentes coordinados</span></div>
+    <div class="stat" id="os-s2"><b class="serif"><span id="os-n2">0</span></b><span class="mono">días</span></div>
+  </div>
+  <div id="os-title" class="serif">Un sistema <span class="it">operativo.</span></div>
+  <div id="os-chips"><span class="chip" id="os-c1">desde una carpeta vacía</span><span class="chip on" id="os-c2">arranca en una laptop</span></div>
+</section>
+
+<!-- ========== 7 HAZAÑAS ========== -->
+<section class="scene" id="sc-feats">
+  <div class="sub" id="fa">
+    <div class="kb" id="fa-kb"><img class="bg" src="img/blackhole.jpg"></div>
+    <div class="shade" style="background:linear-gradient(180deg,rgba(20,20,19,0) 40%,rgba(20,20,19,.85) 62%)"></div>
+    <div class="bignum serif" id="fa-n">2</div>
+    <div class="feat-t serif" id="fa-t">problemas<br>abiertos sobre<br><span class="it">agujeros negros</span></div>
+    <div class="feat-s mono" id="fa-m" style="top:1206px">física teórica · dualidad holográfica</div>
+    <div class="stamp-w" id="fa-sw"><div class="stamp mono" id="fa-s">resueltos</div></div>
+  </div>
+  <div class="sub" id="fb">
+    <div class="kb" id="fb-kb"><img class="bg" src="img/pcb.jpg"></div>
+    <div class="shade" style="background:linear-gradient(180deg,rgba(20,20,19,.25) 0%,rgba(20,20,19,.2) 34%,rgba(20,20,19,.93) 52%)"></div>
+    <div class="bignum serif" id="fb-n" style="top:690px">3</div>
+    <div class="feat-t serif" id="fb-t" style="top:800px;font-size:76px">dispositivos<br>electrónicos<br><span class="it">desde cero</span></div>
+    <div id="fb-chips"><span class="chip" id="fb-c1">hub de voz</span><span class="chip" id="fb-c2">altavoz USB</span><span class="chip" id="fb-c3">mascota virtual</span></div>
+    <div id="fb-zero"><b>0</b>correcciones eléctricas</div>
+  </div>
+  <div class="sub" id="fc">
+    <div class="kb" id="fc-kb"><img class="bg" src="img/robot.jpg"></div>
+    <div class="shade" style="background:linear-gradient(180deg,rgba(20,20,19,1) 0%,rgba(20,20,19,1) 17%,rgba(20,20,19,0) 28%,rgba(20,20,19,.1) 44%,rgba(20,20,19,.7) 58%)"></div>
+    <div id="fc-title" class="serif">Robótica <span class="it clay">simulada</span></div>
+    <div id="fc-tag-w"><div id="fc-tag">más del doble</div></div>
+    <div id="fc-panel">
+      <div class="bar me" id="fc-b1"><span class="bl">Fable 5.2</span><div class="row"><div class="bt" style="width:584px"></div><span class="bv"><span id="fc-v1">0</span><small>%</small></span></div></div>
+      <div class="bar" id="fc-b2"><span class="bl">Opus 5.5</span><div class="row"><div class="bt" style="width:355px"></div><span class="bv"><span id="fc-v2">0</span><small>%</small></span></div></div>
+      <div class="bar" id="fc-b3"><span class="bl">GPT-6 Astra</span><div class="row"><div class="bt" style="width:268px"></div><span class="bv"><span id="fc-v3">0</span><small>%</small></span></div></div>
+      <div class="foot mono">RoboDojo Sim · esfuerzo máximo · pruebas internas de Anthropic</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 8 HONESTIDAD ========== -->
+<section class="scene" id="sc-honest">
+  <img class="bg" id="ho-site" src="img/site_table.jpg">
+  <div class="shade" style="background:radial-gradient(ellipse at 50% 40%,rgba(20,20,19,.2) 0%,rgba(20,20,19,.9) 78%)"></div>
+  <div id="ho-q" class="serif">¿Gano<br>en todo?</div>
+  <div id="ho-no" class="serif clay it">No.</div>
+  <div class="chart" id="ho-c1">
+    <div class="chart-h"><span class="mono">AutomationBench</span><span class="mono dimt">automatización de negocios</span></div>
+    <div class="bar riv" id="ho-b1"><span class="bl">Gemini 4 Carbon<span class="crown riv" id="ho-k1">1.º</span></span><div class="row"><div class="bt" style="width:539px"></div><span class="bv"><span id="ho-v1">0</span><small>%</small></span></div></div>
+    <div class="bar me" id="ho-b2"><span class="bl">Fable 5.2</span><div class="row"><div class="bt" style="width:514px"></div><span class="bv"><span id="ho-v2">0</span><small>%</small></span></div></div>
+  </div>
+  <div class="chart" id="ho-c2">
+    <div class="chart-h"><span class="mono">FrontierSWE v2</span><span class="mono dimt">programación con agentes</span></div>
+    <div class="bar win" id="ho-b3"><span class="bl">Fable 5.2<span class="crown" id="ho-k2">1.º</span></span><div class="row"><div class="bt" style="width:699px"></div><span class="bv"><span id="ho-v3">0</span><small>%</small></span></div></div>
+    <div class="bar" id="ho-b4"><span class="bl">GPT-6 Astra</span><div class="row"><div class="bt" style="width:655px"></div><span class="bv"><span id="ho-v4">0</span><small>%</small></span></div></div>
+    <div class="bar" id="ho-b5"><span class="bl">Opus 5.5</span><div class="row"><div class="bt" style="width:623px"></div><span class="bv"><span id="ho-v5">0</span><small>%</small></span></div></div>
+    <div class="bar" id="ho-b6"><span class="bl">Gemini 4 Carbon</span><div class="row"><div class="bt" style="width:612px"></div><span class="bv"><span id="ho-v6">0</span><small>%</small></span></div></div>
+  </div>
+  <div id="ho-src" class="mono">Fuente: anthropic.com · cifras publicadas por Anthropic</div>
+</section>
+
+<!-- ========== 9 PRECIO ========== -->
+<section class="scene" id="sc-price">
+  <div id="pr-glow"></div>
+  <div id="pr-q" class="serif it">¿Mi precio?</div>
+  <div id="pr-card-w"><div id="pr-card">
+    <div class="pr-h mono"><span>Claude Fable 5.2 · API</span><span>USD</span></div>
+    <div class="pr-row" id="pr-r1"><b class="serif"><sup>$</sup><span id="pr-n1">0</span></b><span>por millón de tokens<br><em>de entrada</em></span></div>
+    <div class="pr-row" id="pr-r2"><b class="serif"><sup>$</sup><span id="pr-n2">0</span></b><span>por millón de tokens<br><em>de salida</em></span></div>
+    <div class="pr-f mono">modo rápido: $16 entrada · $80 salida</div>
+  </div></div>
+  <div id="pr-plat"><span class="chip" id="pp1">Claude</span><span class="chip" id="pp2">API</span><span class="chip" id="pp3">AWS</span><span class="chip" id="pp4">Google Cloud</span><span class="chip" id="pp5">Azure</span></div>
+  <div id="pr-pro"><span class="mono">plan Pro</span><div><b>Fable incluida</b><small>hasta el 50% del límite semanal</small></div></div>
+</section>
+
+<!-- ========== 10 CONSEJO ========== -->
+<section class="scene" id="sc-advice">
+  <div class="kb" id="ad-kb"><img class="bg" src="img/swarm.jpg"></div>
+  <div class="shade" style="background:rgba(20,20,19,.8)"></div>
+  <div id="ad-t" class="serif it">Un consejo honesto.</div>
+  <div id="ad-opus-glow"></div><div id="ad-fable-glow"></div>
+  <div class="ad-card" id="ad-fable"><b class="serif">Fable 5.2</b><span class="mono tag" id="ad-tf">para lo<br>más difícil</span></div>
+  <div class="ad-card" id="ad-opus"><b class="serif">Opus 5.5</b><span class="mono tag" id="ad-to">día a día<br>lo recomienda Anthropic</span></div>
+  <div class="ad-card smc" id="ad-sonnet"><b class="serif">Sonnet 5.5</b></div>
+  <div class="ad-card smc" id="ad-haiku"><b class="serif">Haiku 5.5</b></div>
+  <div id="ad-ax" class="mono">la familia Claude · de más ligero (abajo) a más capaz (arriba)</div>
+</section>
+
+<!-- ========== 11 CIERRE ========== -->
+<section class="scene" id="sc-outro">
+  <div id="ou-a">
+    <div id="ou-q" class="serif it">En resumen</div>
+    <div class="rs" id="rs1"><b class="serif">Más <i class="clay">rápida</i></b><span class="mono" id="rs1t">hasta +30% · modo rápido 2.5×</span></div>
+    <div class="rs" id="rs2"><b class="serif">Más <i class="clay">barata</i></b><span class="mono" id="rs2t">$8 entrada · $40 salida · por millón de tokens</span></div>
+    <div class="rs" id="rs3"><b class="serif">Más <i class="clay">capaz</i></b><span class="mono" id="rs3t">por encima de Opus 5.5 en casi todas las pruebas</span></div>
+  </div>
+  <div id="ou-b">
+    <div id="ou-made1" class="serif">Este video fue<br>creado con</div>
+    <div id="ou-made2" class="serif">Claude<br>Fable <span class="clay it">5.2</span></div>
+  </div>
+  <div id="ou-c">
+    <div class="kb" id="ou-kb"><img class="bg" src="img/horizon.jpg"></div>
+    <div id="ou-follow" class="serif it">Sígueme</div>
+    <div id="ou-logo-w"><img id="ou-logo" src="brand/logo.png" alt=""></div>
+    <div id="ou-brand">AZURY<i>X</i></div>
+    <div id="ou-tag" class="mono">Beyond the future</div>
+    <div id="ou-line"></div>
+    <div id="ou-src" class="mono">Fuente: anthropic.com/claude-fable-and-mythos-5-2<br>Video hecho con IA · no es contenido oficial de Anthropic</div>
+  </div>
+</section>
+
+<div id="hud" class="mono"><span><b id="hud-i">[01]</b> <span id="hud-n"></span></span><span id="hud-wm">AZURY<i>X</i></span></div>
+<div id="flash"></div>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="timeline.js"></script>
+<script src="engine.js"></script>
+<script>
+"use strict";
+window.build = function (VE) {
+  const { S, DUR, $, clamp, hash, wt, tl, show, IN, OUT, kb, wipe, bars, counter, showAt, onFrame, sceneCuts } = VE;
+  VE.captions.skip = ["hook"];              // en el gancho el texto grande ya hace de subtítulo
+
+  /* logo de marca opcional: si existe brand/logo.png se usa; si no, el nombre en texto */
+  const HAS_LOGO = $("#ou-logo").naturalWidth > 0;
+  (HAS_LOGO ? ["#ou-brand", "#ou-tag", "#ou-line"] : ["#ou-logo-w"]).forEach(q => { $(q).style.display = "none"; });
+
+  const s = S;
+  sceneCuts(["hook", "intro", "twins", "speed", "fermat", "os", "feats", "honest", "price", "advice", "outro"]);
+  IN("#hud", s.intro.start + 0.5, { y: -20 }, 0.6);
+
+  /* ===== 1 hook ===== */
+  IN("#hk-tag", 0.08, { x: -20 }, 0.5);
+  document.querySelectorAll("#hk1 .hw").forEach((el, i) => { IN(el, s.hook.words[i].t0 - 0.04, { y: 46 }, 0.34, "back.out(1.5)"); });
+  tl.fromTo("#hk-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.2, ease: "power3.out" }, wt("hook", "lo", 1) - 0.2);
+  OUT("#hk1", wt("hook", "lo", 1) - 0.03, { y: -70 }, 0.16);
+  OUT("#hk-tag", wt("hook", "lo", 1) - 0.03, {}, 0.16);
+  document.querySelectorAll("#hk2 .hw2").forEach((el, i) => { IN(el, s.hook.words[7 + i].t0 - 0.02, { scale: 1.9, y: 30 }, 0.36, "expo.out"); });
+  tl.fromTo("#hk-bg", { autoAlpha: 0, scale: 1.2 }, { autoAlpha: 0.62, scale: 1.12, duration: 1.3, ease: "power2.out" }, wt("hook", "lo", 1));
+
+  /* ===== 2 intro ===== */
+  const i0 = s.intro.start;
+  tl.fromTo("#flash", { autoAlpha: 0, scale: 0.6 }, { autoAlpha: 1, scale: 1.5, duration: 0.14, ease: "power2.in" }, i0 - 0.14)
+    .to("#flash", { autoAlpha: 0, scale: 2.4, duration: 0.55, ease: "power2.out" }, i0);
+  kb("#in-kb", i0, s.intro.end, 1.12, 1.0);
+  IN("#in-kicker", i0 + 0.12, { y: 20 }, 0.5);
+  IN("#in-claude", wt("intro", "claude") - 0.06, { y: 70 }, 0.6);
+  IN("#in-fable", wt("intro", "fable") - 0.06, { y: 90 }, 0.7);
+  tl.fromTo("#in-52", { scale: 1.5 }, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, wt("intro", "5.2") - 0.02);
+  IN("#in-sub", wt("intro", "la") - 0.05, { y: 40 }, 0.6);
+  IN("#in-badge", wt("intro", "y") - 0.02, { scale: 2.2 }, 0.34, "back.out(1.7)");
+
+  /* ===== 3 gemelas ===== */
+  const t0 = s.twins.start; wipe(t0);
+  kb("#tw-kb", t0, s.twins.end, 1.0, 1.06);
+  IN("#tw-f", wt("twins", "tengo") + 0.05, { y: 30 }, 0.5);
+  IN("#tw-m", wt("twins", "mythos") - 0.05, { y: 30 }, 0.5);
+  IN("#tw-same", wt("twins", "somos") - 0.03, { scale: 0.7 }, 0.5, "back.out(1.8)");
+  IN("#tw-f1", wt("twins", "yo") + 0.1, { x: -50 }, 0.5);
+  IN("#tw-f2", wt("twins", "disponible") - 0.1, { x: -50 }, 0.5);
+  IN("#tw-m1", wt("twins", "ella") + 0.05, { x: 50 }, 0.5);
+  tl.to("#tw-cf", { opacity: 0.4, duration: 0.3 }, wt("twins", "ella"));
+
+  /* ===== 4 velocidad ===== */
+  const v0 = s.speed.start; wipe(v0);
+  tl.fromTo("#sp-kb", { scale: 1.0 }, { scale: 1.55, duration: s.speed.end - v0 + 0.6, ease: "power1.in" }, v0 - 0.3);
+  IN("#sp-a-k", wt("speed", "hasta") - 0.1, { y: 20 }, 0.4);
+  IN("#sp-num", wt("speed", "30%") - 0.12, { scale: 0.55 }, 0.5, "back.out(1.6)");
+  counter("#sp-cnt", wt("speed", "30%") - 0.1, wt("speed", "30%") + 0.75, 0, 30);
+  IN("#sp-a-l", wt("speed", "mas") - 0.05, { y: 20 }, 0.4);
+  IN("#sp-race", wt("speed", "rapida") - 0.05, { y: 20 }, 0.3);
+  const r0 = wt("speed", "rapida") + 0.1;
+  tl.fromTo("#sp-r1", { scaleX: 0 }, { scaleX: 1, duration: 1.43, ease: "none" }, r0);
+  tl.fromTo("#sp-r2", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "none" }, r0);
+  OUT("#sp-a", wt("speed", "y") - 0.12, { y: -90 }, 0.22);
+  IN("#sp-b-k", wt("speed", "modo") - 0.1, { y: 30 }, 0.4);
+  IN("#sp-x", wt("speed", "2.5×") - 0.04, { scale: 2.4 }, 0.42, "expo.out");
+  IN("#sp-b-l", wt("speed", "2.5×") + 0.45, { y: 20 }, 0.4);
+
+  /* ===== 5 fermat ===== */
+  const f0 = s.fermat.start; wipe(f0);
+  kb("#fe-kb", f0, s.fermat.end, 1.1, 1.0);
+  IN("#fe-q", f0 + 0.12, { y: 60 }, 0.5);
+  OUT("#fe-q", wt("fermat", "mil") - 0.18, { y: -60 }, 0.18);
+  tl.fromTo("#fe-shade", { opacity: 0.86 }, { opacity: 1, duration: 0.5 }, wt("fermat", "mil") - 0.1);
+  IN("#fe-dots", wt("fermat", "mil") - 0.05, {}, 0.3);
+  IN("#fe-count", wt("fermat", "mil"), { y: 16 }, 0.4);
+  counter("#fe-n", wt("fermat", "mil"), wt("fermat", "formalizaron") + 0.3, 0, 1000);
+  IN("#fe-formula", wt("fermat", "ultimo") - 0.12, { y: 40, scale: 0.9 }, 0.6);
+  IN("#fe-label", wt("fermat", "teorema"), { y: 14 }, 0.5);
+  IN("#fe-30", wt("fermat", "30") - 0.06, { scale: 1.6, x: -30 }, 0.45);
+  counter("#fe-30n", wt("fermat", "30") - 0.06, wt("fermat", "30") + 0.5, 0, 30);
+  IN("#fe-11", wt("fermat", "antes") - 0.04, { x: 40 }, 0.45);
+  tl.fromTo("#fe-11s", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power3.out" }, wt("fermat", "11") + 0.25);
+
+  /* ===== 6 sistema operativo ===== */
+  const o0 = s.os.start; wipe(o0);
+  kb("#os-kb", o0, s.os.end, 1.0, 1.07);
+  IN("#os-s1", wt("os", "1000") - 0.1, { y: 30 }, 0.5);
+  counter("#os-n1", wt("os", "1000") - 0.1, wt("os", "1000") + 0.7, 0, 1000);
+  IN("#os-s2", wt("os", "8") - 0.08, { y: 30 }, 0.5);
+  counter("#os-n2", wt("os", "8") - 0.08, wt("os", "8") + 0.4, 0, 8);
+  IN("#os-title", wt("os", "sistema") - 0.1, { y: 40 }, 0.6);
+  IN("#os-c1", wt("os", "desde") - 0.04, { scale: 0.6 }, 0.4, "back.out(1.8)");
+  IN("#os-c2", wt("os", "arranca") - 0.04, { scale: 0.6 }, 0.4, "back.out(1.8)");
+  const bootLines = [
+    [o0 + 0.25, '<span class="pr">$</span> mkdir fable-os/ <span style="color:#87867f"># carpeta vacía</span>'],
+    [wt("os", "1000"), '<span class="pr">$</span> fable --subagentes 1000+'],
+    [wt("os", "construi"), '<span class="ok">[ ok ]</span> núcleo'],
+    [wt("os", "construi") + 0.45, '<span class="ok">[ ok ]</span> drivers: disco · teclado · red'],
+    [wt("os", "operativo"), '<span class="ok">[ ok ]</span> almacenamiento permanente'],
+    [wt("os", "8"), '<span class="ok">[ ok ]</span> ventanas · login · instalador'],
+    [wt("os", "desde"), '<span class="ok">[ ok ]</span> funciones de Claude integradas'],
+    [wt("os", "vacia"), '<span class="pr">$</span> boot --laptop'],
+  ];
+  const boot = $("#os-boot");
+  bootLines.forEach(([t, html]) => { const d = document.createElement("div"); d.innerHTML = html; boot.appendChild(d); showAt(d, t); });
+  tl.fromTo("#os-desk", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, wt("os", "arranca") - 0.02);
+  IN("#os-w1", wt("os", "arranca") + 0.12, { scale: 0.7, y: 20 }, 0.4, "back.out(1.6)");
+  IN("#os-w2", wt("os", "laptop") - 0.05, { scale: 0.7, y: 20 }, 0.4, "back.out(1.6)");
+
+  /* ===== 7 hazañas ===== */
+  const a0 = s.feats.start, b0 = wt("feats", "disene") - 0.22, c0 = wt("feats", "y", 1) - 0.2;
+  wipe(a0);
+  show("#fa", a0, b0); show("#fb", b0, c0); show("#fc", c0, s.feats.end);
+  kb("#fa-kb", a0, b0, 1.14, 1.0);
+  IN("#fa-n", wt("feats", "2") - 0.08, { scale: 2.0, y: 40 }, 0.5);
+  IN("#fa-t", wt("feats", "problemas") - 0.08, { x: 50 }, 0.55);
+  IN("#fa-m", wt("feats", "sobre"), { y: 14 }, 0.4);
+  IN("#fa-s", wt("feats", "resolvi") + 0.12, { scale: 2.6 }, 0.3, "power4.out");
+  wipe(b0, "h");
+  kb("#fb-kb", b0, c0, 1.0, 1.12);
+  IN("#fb-n", wt("feats", "3") - 0.08, { scale: 2.0, y: 40 }, 0.5);
+  IN("#fb-t", wt("feats", "dispositivos") - 0.08, { x: 50 }, 0.55);
+  ["#fb-c1", "#fb-c2", "#fb-c3"].forEach((c, i) => {
+    IN(c, wt("feats", "electronicos") + i * 0.22, { y: 24 }, 0.35, "back.out(1.6)");
+    tl.to(c, { backgroundColor: "#bcd1ca", borderColor: "#bcd1ca", color: "#141413", duration: 0.18 }, wt("feats", "tres") + i * 0.2);
+  });
+  IN("#fb-zero", wt("feats", "sin") - 0.02, { y: 34 }, 0.5);
+  wipe(c0, "h");
+  kb("#fc-kb", c0, s.feats.end, 1.1, 1.0);
+  IN("#fc-title", wt("feats", "robotica") - 0.1, { y: 40 }, 0.55);
+  IN("#fc-panel", wt("feats", "simulada") + 0.2, { y: 60 }, 0.5);
+  bars([["#fc-b1", "#fc-v1", 64.9]], wt("feats", "saco") - 0.2);
+  bars([["#fc-b2", "#fc-v2", 39.4]], wt("feats", "saco") + 0.15);
+  bars([["#fc-b3", "#fc-v3", 29.8]], wt("feats", "gpt-6") - 0.3);
+  IN("#fc-tag", wt("feats", "doble") - 0.12, { scale: 2.2 }, 0.34, "back.out(1.6)");
+
+  /* ===== 8 honestidad ===== */
+  const h0 = s.honest.start; wipe(h0);
+  IN("#ho-q", wt("honest", "gano") - 0.08, { y: 60 }, 0.5);
+  IN("#ho-no", wt("honest", "no") - 0.03, { scale: 2.4 }, 0.3, "power4.out");
+  tl.to("#ho-no", { rotation: -5, duration: 0.07, ease: "power1.inOut", yoyo: true, repeat: 3 }, wt("honest", "no") + 0.28);
+  OUT("#ho-q", wt("honest", "en", 1) - 0.2, { y: -50 }, 0.18);
+  OUT("#ho-no", wt("honest", "en", 1) - 0.2, { scale: 0.7 }, 0.18);
+  IN("#ho-c1 .chart-h", wt("honest", "en", 1) - 0.02, { y: 20 }, 0.4);
+  bars([["#ho-b2", "#ho-v2", 51.4]], wt("honest", "automatizacion") + 0.1);
+  bars([["#ho-b1", "#ho-v1", 53.9]], wt("honest", "gemini") - 0.1);
+  IN("#ho-k1", wt("honest", "gana") - 0.05, { scale: 2 }, 0.3, "back.out(2)");
+  IN("#ho-src", wt("honest", "gemini"), {}, 0.5);
+  tl.to("#ho-c1", { opacity: 0.45, duration: 0.3 }, wt("honest", "pero") - 0.05);
+  IN("#ho-c2 .chart-h", wt("honest", "pero") - 0.05, { y: 20 }, 0.35);
+  bars([["#ho-b3", "#ho-v3", 69.9], ["#ho-b4", "#ho-v4", 65.5], ["#ho-b5", "#ho-v5", 62.3], ["#ho-b6", "#ho-v6", 61.2]], wt("honest", "pero") + 0.05, 0.1);
+  IN("#ho-k2", wt("honest", "primera") - 0.05, { scale: 2 }, 0.3, "back.out(2)");
+
+  /* ===== 9 precio ===== */
+  const p0 = s.price.start; wipe(p0);
+  IN("#pr-q", wt("price", "mi") - 0.06, { y: 50 }, 0.5);
+  IN("#pr-card", wt("price", "$8") - 0.45, { y: 420, rotation: 7 }, 0.6, "power4.out");
+  IN("#pr-r1", wt("price", "$8") - 0.1, { x: -30 }, 0.3);
+  counter("#pr-n1", wt("price", "$8") - 0.08, wt("price", "$8") + 0.4, 0, 8);
+  IN("#pr-r2", wt("price", "$40") - 0.1, { x: -30 }, 0.3);
+  counter("#pr-n2", wt("price", "$40") - 0.08, wt("price", "$40") + 0.5, 0, 40);
+  ["#pp1", "#pp2", "#pp3", "#pp4", "#pp5"].forEach((c, i) => IN(c, wt("price", "ya") + 0.1 + i * 0.13, { y: 24 }, 0.35, "back.out(1.7)"));
+  IN("#pr-pro", wt("price", "y") + 0.25, { y: 60 }, 0.5, "back.out(1.3)");
+
+  /* ===== 10 consejo ===== */
+  const d0 = s.advice.start; wipe(d0);
+  kb("#ad-kb", d0, s.advice.end, 1.0, 1.1);
+  IN("#ad-t", wt("advice", "un") - 0.06, { y: 50 }, 0.5);
+  ["#ad-haiku", "#ad-sonnet", "#ad-opus", "#ad-fable"].forEach((c, i) => IN(c, wt("advice", "honesto") - 0.25 + i * 0.12, { y: 50 }, 0.45));
+  IN("#ad-ax", wt("advice", "honesto") + 0.4, {}, 0.5);
+  IN("#ad-opus-glow", wt("advice", "para") - 0.02, { scale: 1.08 }, 0.4);
+  IN("#ad-to", wt("advice", "dia") - 0.05, { x: 30 }, 0.4);
+  IN("#ad-tf", wt("advice", "a", 1) - 0.02, { x: 30 }, 0.4);
+  IN("#ad-fable-glow", wt("advice", "a", 1) - 0.06, { scale: 1.1 }, 0.4);
+  OUT("#ad-opus-glow", wt("advice", "a", 1) - 0.06, {}, 0.3);
+  tl.to(["#ad-opus", "#ad-sonnet", "#ad-haiku"], { opacity: 0.42, duration: 0.3 }, wt("advice", "a", 1) - 0.04);
+
+  /* ===== 11 cierre ===== */
+  const u0 = s.outro.start; wipe(u0);
+  IN("#ou-q", wt("outro", "en") - 0.06, { y: 50 }, 0.5);
+  [0, 1, 2].forEach(i => {
+    IN("#rs" + (i + 1) + " b", wt("outro", "mas", i) - 0.06, { x: -70 }, 0.5);
+    IN("#rs" + (i + 1) + "t", wt("outro", "mas", i) + 0.3, { y: 14 }, 0.4);
+  });
+  const all0 = S.made.start;
+  wipe(all0);
+  tl.set("#ou-a", { autoAlpha: 0 }, all0);
+  IN("#ou-made1", wt("made", "este") - 0.06, { y: 60 }, 0.55);
+  IN("#ou-made2", wt("made", "claude") - 0.1, { y: 90, scale: 0.9 }, 0.65);
+  const e0 = wt("end", "sigueme") - 0.25;
+  wipe(e0);
+  tl.set("#ou-b", { autoAlpha: 0 }, e0);
+  tl.set("#ou-c", { autoAlpha: 1 }, e0);
+  tl.fromTo("#ou-kb", { scale: 1.16 }, { scale: 1.0, duration: DUR - e0 + 0.4, ease: "power1.out" }, e0 - 0.2);
+  IN("#ou-follow", wt("end", "sigueme") - 0.04, { y: 40 }, 0.5);
+  if (HAS_LOGO) {
+    IN("#ou-logo-w", wt("end", "sigueme") + 0.2, { scale: 0.72, y: 60 }, 0.8, "back.out(1.5)");
+  } else {
+    IN("#ou-brand", wt("end", "sigueme") + 0.22, { scale: 0.8, y: 40 }, 0.7, "back.out(1.4)");
+    IN("#ou-tag", wt("end", "sigueme") + 0.5, { y: 20 }, 0.5);
+    tl.fromTo("#ou-line", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.out" }, wt("end", "sigueme") + 0.6);
+  }
+  IN("#ou-src", wt("end", "apenas"), { y: 16 }, 0.6);
+  tl.to("#hud", { autoAlpha: 0, duration: 0.3 }, e0);
+  tl.to({}, { duration: 0.01 }, DUR);
+
+  /* cursor que parpadea antes de la primera palabra */
+  onFrame(t => { $("#hk-cur").style.visibility = (t < S.hook.words[0].t0 - 0.04 && ((t * 6) | 0) % 2 === 0) ? "visible" : "hidden"; });
+
+  /* etiqueta superior con el número y nombre de sección */
+  const HUDN = ["presentación", "la gemela", "velocidad", "matemáticas", "software", "física", "hardware", "robótica", "honestidad", "precio", "consejo", "resumen"];
+  const hudT = [S.intro.start, S.twins.start, S.speed.start, S.fermat.start, S.os.start, S.feats.start, wt("feats", "disene") - 0.22, wt("feats", "y", 1) - 0.2, S.honest.start, S.price.start, S.advice.start, S.outro.start];
+  onFrame(t => {
+    let k = 0; for (let i = 0; i < hudT.length; i++) if (t >= hudT[i]) k = i;
+    if ($("#hud-n").textContent !== HUDN[k]) { $("#hud-i").textContent = "[" + String(k + 1).padStart(2, "0") + "]"; $("#hud-n").textContent = HUDN[k]; }
+  });
+
+  /* 1,000 puntos = 1,000 agentes: se encienden en onda y pasan a verde al terminar */
+  const dctx = $("#fe-dots").getContext("2d"), tMil = wt("fermat", "mil"), t30 = wt("fermat", "30");
+  const mix = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
+  const C_OFF = [61, 61, 58], C_CLAY = [217, 119, 87], C_IV = [250, 249, 245], C_CAC = [188, 209, 202];
+  onFrame(t => {
+    if (t < S.fermat.start - 0.5 || t > S.fermat.end + 0.5) return;
+    dctx.clearRect(0, 0, 960, 560);
+    for (let i = 0; i < 1000; i++) {
+      const col = i % 40, row = (i / 40) | 0, h = hash(i);
+      const d = Math.hypot(col - 19.5, (row - 12) * 1.1) / 24;
+      const k = clamp((t - (tMil + d * 0.95 + h * 0.3)) / 0.22), tw = 0.5 + 0.5 * Math.sin(t * 5.2 + h * 40);
+      const k2 = clamp((t - (t30 + col / 40 * 0.55 + h * 0.1)) / 0.2);
+      const c = mix(mix(mix(C_OFF, C_CLAY, k), C_IV, k * 0.3 * tw), C_CAC, k2);
+      dctx.fillStyle = `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`;
+      dctx.beginPath(); dctx.arc(12 + col * 24, 10 + row * 22.5, 3.2 + 2.6 * k + 1.2 * k * tw * (1 - k2) + 0.8 * k2, 0, 6.2832); dctx.fill();
+    }
+  });
+};
+</script>
+</body>
+</html>

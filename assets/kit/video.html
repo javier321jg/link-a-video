@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>link-a-video · plantilla</title>
+<!-- Plantilla mínima de 3 escenas (gancho, dato, cierre) para script.example.json.
+     Reescribe las escenas para cada video; examples/fable52/video.html muestra uno completo de 11 escenas. -->
+<link rel="stylesheet" href="base.css">
+<style>
+/* Zonas seguras en TikTok/Shorts (1080x1920): contenido entre y=190 y y=1280; subtítulos en y≈1340-1500;
+   por debajo de y=900 no pases de x=950 (botones); nada importante bajo y=1550 ni sobre y=130. */
+#hk{position:absolute;left:72px;top:400px;width:940px;font-size:168px;line-height:1.0}
+.hw{display:inline-block}
+#dt-t{position:absolute;left:72px;top:230px;font-size:112px}
+#dt-chart{position:absolute;left:72px;top:520px;width:880px}
+#dt-src{position:absolute;left:72px;top:1240px;color:var(--dim);font-size:20px}
+#ci-t{position:absolute;left:0;width:1080px;top:320px;text-align:center;font-size:120px}
+#ci-logo-w{position:absolute;left:220px;top:500px;width:640px;height:640px;border-radius:84px;overflow:hidden;box-shadow:0 30px 120px rgba(0,0,0,.6)}
+#ci-logo{width:100%;height:100%;object-fit:cover;display:block}
+#ci-brand{position:absolute;left:0;width:1080px;top:560px;text-align:center;font-weight:800;font-size:170px;letter-spacing:.01em;line-height:1}
+#ci-src{position:absolute;left:0;width:1080px;top:1172px;text-align:center;color:var(--cloud);font-size:23px;line-height:1.7}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="scene" id="sc-hook">
+  <h1 id="hk" class="serif"><span class="hw">Esto</span> <span class="hw">cambia</span><br><span class="hw clay it">todo.</span></h1>
+</section>
+
+<section class="scene" id="sc-dato">
+  <div id="dt-t" class="serif it">El dato clave</div>
+  <div id="dt-chart">
+    <div class="bar win" id="b1"><span class="bl">Nuevo</span><div class="row"><div class="bt" style="width:640px"></div><span class="bv"><span id="v1">0</span><small>%</small></span></div></div>
+    <div class="bar" id="b2"><span class="bl">Anterior</span><div class="row"><div class="bt" style="width:410px"></div><span class="bv"><span id="v2">0</span><small>%</small></span></div></div>
+  </div>
+  <div id="dt-src" class="mono">Fuente: ejemplo.com</div>
+</section>
+
+<section class="scene" id="sc-cierre">
+  <div id="ci-t" class="serif it">Sígueme</div>
+  <div id="ci-logo-w"><img id="ci-logo" src="brand/logo.png" alt=""></div>
+  <div id="ci-brand">MI MARCA</div>
+  <div id="ci-src" class="mono">Fuente: ejemplo.com · Video hecho con IA</div>
+</section>
+
+</div>
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="timeline.js"></script>
+<script src="engine.js"></script>
+<script>
+"use strict";
+window.build = function (VE) {
+  const { S, $, wt, tl, IN, OUT, kb, wipe, bars, sceneCuts } = VE;
+  sceneCuts(["hook", "dato", "cierre"]);
+  VE.captions.skip = ["hook"];                       // en el gancho el texto grande ya es el subtítulo
+
+  /* gancho: cada palabra entra cuando se pronuncia */
+  document.querySelectorAll("#hk .hw").forEach((el, i) => IN(el, S.hook.words[i].t0 - 0.04, { y: 46 }, 0.34, "back.out(1.5)"));
+
+  /* dato: cortina en el corte, título y barras sincronizados con la voz */
+  wipe(S.dato.start);
+  IN("#dt-t", S.dato.start + 0.15, { y: 50 }, 0.5);
+  bars([["#b1", "#v1", 64], ["#b2", "#v2", 41]], wt("dato", "sube") - 0.1);
+  IN("#dt-src", S.dato.start + 1.0, {}, 0.5);
+
+  /* cierre: logo si existe brand/logo.png; si no, el nombre en texto */
+  wipe(S.cierre.start);
+  const hasLogo = $("#ci-logo").naturalWidth > 0;
+  $(hasLogo ? "#ci-brand" : "#ci-logo-w").style.display = "none";
+  IN("#ci-t", wt("cierre", "sigueme") - 0.05, { y: 40 }, 0.5);
+  IN(hasLogo ? "#ci-logo-w" : "#ci-brand", wt("cierre", "sigueme") + 0.2, { scale: 0.75, y: 50 }, 0.8, "back.out(1.5)");
+  IN("#ci-src", S.cierre.start + 1.2, { y: 16 }, 0.6);
+};
+</script>
+</body>
+</html>

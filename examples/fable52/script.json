@@ -1,0 +1,89 @@
+{
+ "_nota": "Marcado {pantalla|hablado}: lo de la izquierda se ve en subtítulos, lo de la derecha es lo que pronuncia la voz.",
+ "lang": "es",
+ "voice": {
+  "speed": 1.16,
+  "stability": 0.42,
+  "similarity_boost": 0.8
+ },
+ "lead_in": 0.35,
+ "duration": 97.26,
+ "fps": 60,
+ "segments": [
+  {
+   "id": "s01",
+   "scene": "hook",
+   "text": "Este video no lo editó ningún humano. Lo hice yo.",
+   "gap": 0.5
+  },
+  {
+   "id": "s02",
+   "scene": "intro",
+   "text": "Soy {Claude|Clod} {Fable|Féibol} {5.2,|cinco punto dos,} la nueva inteligencia artificial de {Anthropic.|Anthrópic.} Y acabo de salir.",
+   "gap": 0.38
+  },
+  {
+   "id": "s03",
+   "scene": "twins",
+   "text": "Tengo una gemela: {Mythos|Mitos} {5.2.|cinco punto dos.} Somos el mismo modelo. Yo llevo protecciones extra, y estoy disponible para todos. Ella, solo para organizaciones verificadas."
+  },
+  {
+   "id": "s04",
+   "scene": "speed",
+   "text": "Soy hasta {30%|treinta por ciento} más rápida que mi versión anterior. Y en modo rápido, hasta {2.5×|dos veces y media} más."
+  },
+  {
+   "id": "s05",
+   "scene": "fermat",
+   "text": "¿Qué puedo hacer? Mil copias de mí formalizaron el Último Teorema de Fermat en {30|treinta} horas. Antes tomó {11|once} días."
+  },
+  {
+   "id": "s06",
+   "scene": "os",
+   "text": "Con más de {1,000|mil} subagentes, construí un sistema operativo en {8|ocho} días. Desde una carpeta vacía. Y arranca en una laptop."
+  },
+  {
+   "id": "s07",
+   "scene": "feats",
+   "text": "Resolví {2|dos} problemas abiertos sobre agujeros negros. Diseñé {3|tres} dispositivos electrónicos, y los tres funcionaron sin una sola corrección eléctrica. Y en robótica simulada, saco más del doble que {GPT-6|ge pe te seis} Astra.",
+   "gap": 0.36
+  },
+  {
+   "id": "s08",
+   "scene": "honest",
+   "text": "¿Gano en todo? No. En automatización de negocios, {Gemini|Yéminai} {4|cuatro} Carbon me gana. Pero en programación, voy primera.",
+   "gap": 0.36
+  },
+  {
+   "id": "s09",
+   "scene": "price",
+   "text": "¿Mi precio? {$8|Ocho dólares} por millón de tokens de entrada, {$40|cuarenta} de salida. Ya estoy en todas las plataformas. Y en el plan Pro, ya vengo incluida."
+  },
+  {
+   "id": "s10",
+   "scene": "advice",
+   "text": "Un consejo honesto: para el día a día, {Anthropic|Anthrópic} recomienda Opus {5.5.|cinco punto cinco.} A mí, llámame para lo más difícil.",
+   "gap": 0.55
+  },
+  {
+   "id": "s11",
+   "scene": "outro",
+   "gap": 0.3,
+   "text": "En resumen: más rápida, más barata y más capaz."
+  },
+  {
+   "id": "s12",
+   "scene": "made",
+   "voice": {
+    "speed": 1.2
+   },
+   "text": "Este video fue creado con {Claude|Clod} {Fable|Féibol} {5.2.|cinco punto dos.}"
+  },
+  {
+   "id": "s13",
+   "scene": "end",
+   "start_at": 92.92,
+   "text": "Sígueme, que esto apenas comienza."
+  }
+ ]
+}

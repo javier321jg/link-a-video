@@ -1,0 +1,154 @@
+{
+ "global_positive": [
+  "instrumental",
+  "cinematic electronic",
+  "modern tech launch film score",
+  "warm analog synth pulses",
+  "deep sub bass",
+  "tight minimal percussion",
+  "D minor",
+  "100 BPM",
+  "sleek",
+  "mysterious yet hopeful",
+  "clean mix with space in the midrange for a voice-over"
+ ],
+ "global_negative": [
+  "vocals",
+  "lyrics",
+  "singing",
+  "choir",
+  "harsh distortion",
+  "lo-fi",
+  "acoustic guitar",
+  "festival EDM"
+ ],
+ "sections": [
+  {
+   "name": "Hook",
+   "from": 0,
+   "positive": [
+    "near silence",
+    "low sub drone in D",
+    "single soft heartbeat pulse",
+    "rising reversed swell into the next section"
+   ],
+   "negative": [
+    "drums",
+    "melody"
+   ]
+  },
+  {
+   "name": "Reveal",
+   "from": "intro.start",
+   "positive": [
+    "deep impact on the first beat",
+    "main synth motif enters",
+    "warm analog pulse",
+    "wide and confident"
+   ],
+   "negative": [
+    "busy drums"
+   ]
+  },
+  {
+   "name": "Verse",
+   "from": "twins.start",
+   "positive": [
+    "steady minimal groove",
+    "plucked synth arpeggio",
+    "soft kick and rim clicks",
+    "leaves space for a narrator"
+   ],
+   "negative": [
+    "big drums",
+    "lead melody"
+   ]
+  },
+  {
+   "name": "Build",
+   "from": "fermat.start",
+   "positive": [
+    "energy building",
+    "faster arpeggios",
+    "pulsing bass",
+    "rising tension",
+    "snare build near the end"
+   ],
+   "negative": [
+    "breakdown"
+   ]
+  },
+  {
+   "name": "Peak",
+   "from": "feats.start",
+   "positive": [
+    "full energy",
+    "driving drums",
+    "big warm synth chords",
+    "triumphant",
+    "cinematic"
+   ],
+   "negative": [
+    "harsh distortion"
+   ]
+  },
+  {
+   "name": "Breakdown",
+   "from": "honest.start",
+   "positive": [
+    "sudden drop to almost nothing",
+    "playful sparse plucks",
+    "sub bass only",
+    "a wink"
+   ],
+   "negative": [
+    "drums",
+    "big chords"
+   ]
+  },
+  {
+   "name": "Lift",
+   "from": "price.start",
+   "positive": [
+    "groove returns",
+    "confident mid-tempo",
+    "warm pulses",
+    "hopeful chords"
+   ],
+   "negative": [
+    "harsh distortion"
+   ]
+  },
+  {
+   "name": "Credits",
+   "from": "outro.start",
+   "positive": [
+    "groove continues at full energy",
+    "main motif returns",
+    "confident and driving",
+    "steady drums",
+    "no fade out"
+   ],
+   "negative": [
+    "breakdown",
+    "silence",
+    "fade out"
+   ]
+  },
+  {
+   "name": "Finale",
+   "from": "end:sigueme-0.25",
+   "positive": [
+    "big final hit on the first beat",
+    "sustained D minor chord with deep sub bass",
+    "shimmering synth pad",
+    "rings out until the very end"
+   ],
+   "negative": [
+    "new melody",
+    "drums",
+    "early silence"
+   ]
+  }
+ ]
+}
