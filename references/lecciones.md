@@ -10,6 +10,7 @@ Cosas que fallaron al construir el primer video con este kit y cómo quedaron re
 - No se puede escuchar el resultado desde el agente. Una transcripción rápida (Whisper) confirma que los nombres se entienden; el timbre y la música los tiene que oír la persona.
 
 ## Música
+- **Que se oiga.** El primer video salió con la música 23 dB por debajo de la voz: inaudible. `mix.py` imprime el balance global y escena por escena; apunta a 8–11 dB bajo la voz (con fuerza, sin tapar al narrador). Si una escena queda a más de 13 dB es que la pista viene floja ahí: súbela con `"gains"` en `mix.json`; si queda a menos de 7 dB, bájala.
 - **Se apaga antes de tiempo.** Si la última sección es larga y pides "fade out", la música muere 8–10 s antes del final. Parte el cierre en dos secciones y pide a la última que "se sostenga hasta el último segundo"; `music.py` avisa si detecta el problema.
 - Las secciones respetan su duración, no siempre su carácter (un "breakdown" puede no bajar). Para un silencio dramático usa `"dips"` en `mix.json`.
 - El error 429 `system_busy` es pasajero; el script reintenta solo.
